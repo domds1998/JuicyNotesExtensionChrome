@@ -9,8 +9,9 @@ window.addEventListener('mouseup', event => {
     let selectedText = window.getSelection().toString();
     let mousePositionX = event.pageX;
     let mousePositionY = event.pageY;
+    let parent = null
     if (selectedText.length > 0 || selectedText !== "") {
-        let parent = document.createElement('div');
+        parent = document.createElement('div');
         parent.id = "highlighterParent"
         let getParent = document.getElementById('highlighterParent');
         if (getParent == null) {
@@ -19,10 +20,14 @@ window.addEventListener('mouseup', event => {
             body.removeChild(getParent);
             renderParent(mousePositionX, mousePositionY, selectedText, parent);
         }
-    } else {
-        let toDelete = document.getElementById('highlighterParent');
-        if (toDelete != null) {
-            body.removeChild(toDelete);
+    } else if (parent != null) {
+        if (parent.style.position.left < event.pageX && parent.style.position.top < event.pageY && parent.style.position.right > event.pageX && parent.style.position.bottom > event.pageY) {
+
+        } else {
+            let toDelete = document.getElementById('highlighterParent');
+            if (toDelete != null) {
+                body.removeChild(toDelete);
+            }
         }
     }
 });
