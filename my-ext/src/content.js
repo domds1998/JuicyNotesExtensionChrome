@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Form, HighlighterWrapper, Title, TitleFormWrapper, TitleNoteLabel, Input, ButtonsWrapper, Button } from './views/Highlighter/ContentStyles';
 
 const body = document.body;
+let isOnDiv = false;
 
 window.addEventListener('mouseup', event => {
     let selectedText = window.getSelection().toString();
@@ -26,18 +27,12 @@ window.addEventListener('mouseup', event => {
     }
 });
 
-// function onMouseOut(event) {
-//     var e = event.toElement || event.relatedTarget;
-//     if (e.parentNode == this || e == this) {
-//         return;
-//     }
-//     alert('MouseOut');
-// }
 
 function renderParent(mousePositionX, mousePositionY, selectedText, parent) {
     ReactDOM.render(<Highlighter mousePositionX={mousePositionX} mousePositionY={mousePositionY} content={selectedText} />, parent);
     body.appendChild(parent);
-    // parent.addEventListener('mouseout', onMouseOut, true);
+    parent.addEventListener("mouseenter", function () { isOnDiv = true; console.log("true") });
+    parent.addEventListener("mouseout", function () { isOnDiv = false; console.log("false") });
 }
 
 function Highlighter(props) {
