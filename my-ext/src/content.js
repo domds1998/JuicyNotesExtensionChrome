@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HighlighterWrapper } from './ContentStyles';
+import { Form, HighlighterWrapper, Title, TitleFormWrapper, TitleNoteLabel, Input, ButtonsWrapper, Button } from './views/Highlighter/ContentStyles';
 
 const body = document.body;
 
@@ -26,14 +26,36 @@ window.addEventListener('mouseup', event => {
     }
 });
 
+// function onMouseOut(event) {
+//     var e = event.toElement || event.relatedTarget;
+//     if (e.parentNode == this || e == this) {
+//         return;
+//     }
+//     alert('MouseOut');
+// }
+
 function renderParent(mousePositionX, mousePositionY, selectedText, parent) {
     ReactDOM.render(<Highlighter mousePositionX={mousePositionX} mousePositionY={mousePositionY} content={selectedText} />, parent);
     body.appendChild(parent);
+    // parent.addEventListener('mouseout', onMouseOut, true);
 }
 
 function Highlighter(props) {
     console.log(props.mousePositionX + " " + props.mousePositionY);
     return (
-        <HighlighterWrapper top={props.mousePositionY + "px"} left={props.mousePositionX + "px"}>{props.content}</HighlighterWrapper>
+        <HighlighterWrapper top={props.mousePositionY + "px"} left={props.mousePositionX + "px"}>
+            <Title>Dodaj notatkę</Title>
+            <Form>
+                <TitleFormWrapper>
+                    <TitleNoteLabel>Tytuł:</TitleNoteLabel>
+                    <Input width="100%" height="40px" type="text" isRightBordered></Input>
+                </TitleFormWrapper>
+                <Input width="100%" height="80px" type="text"></Input>
+                <ButtonsWrapper>
+                    <Button>Zrób fiszkę</Button>
+                    <Button>+</Button>
+                </ButtonsWrapper>
+            </Form>
+        </HighlighterWrapper>
     );
 }
