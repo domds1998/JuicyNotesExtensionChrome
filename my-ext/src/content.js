@@ -4,10 +4,15 @@ import { Form, HighlighterWrapper, Title, TitleFormWrapper, TitleNoteLabel, Inpu
 
 const body = document.body;
 
-window.addEventListener('mouseup', event => {
+const addHighlighter = function (event) {
     let selectedText = window.getSelection().toString();
     let mousePositionX = event.pageX;
     let mousePositionY = event.pageY;
+    let toDelete = document.getElementById('highlighterParent');
+
+    let target = event.target;
+    console.log(target.id);
+
     if (selectedText.length > 0 || selectedText !== "") {
         let parent = document.createElement('div');
         parent.id = "highlighterParent"
@@ -15,8 +20,9 @@ window.addEventListener('mouseup', event => {
         if (getParent == null) {
             renderParent(mousePositionX, mousePositionY, selectedText, parent);
         } else {
-            body.removeChild(getParent);
-            renderParent(mousePositionX, mousePositionY, selectedText, parent);
+            if (target.id === parent.id) { } else {
+                body.removeChild(getParent);
+            }
         }
     } else {
         let toDelete = document.getElementById('highlighterParent');
@@ -24,18 +30,28 @@ window.addEventListener('mouseup', event => {
             body.removeChild(toDelete);
         }
     }
-});
+}
+
+window.addEventListener('mouseup', addHighlighter);
 
 
 function renderParent(mousePositionX, mousePositionY, selectedText, parent) {
     ReactDOM.render(<Highlighter mousePositionX={mousePositionX} mousePositionY={mousePositionY} content={selectedText} />, parent);
     body.appendChild(parent);
+    parent.addEventListener('mouseup', event => {
+        event.stopPropagation();
+    });
 }
 
 function Highlighter(props) {
     console.log(props.mousePositionX + " " + props.mousePositionY);
+
+    const handleClick = e => {
+        console.log("saassasa")
+    }
+
     return (
-        <HighlighterWrapper top={props.mousePositionY + "px"} left={props.mousePositionX + "px"}>
+        <HighlighterWrapper top={props.mousePositionY + 30 + "px"} left={props.mousePositionX + "px"}>
             <Title>Dodaj notatkę</Title>
             <Form>
                 <TitleFormWrapper>
@@ -45,7 +61,7 @@ function Highlighter(props) {
                 <Input width="100%" height="80px" type="text" defaultValue={props.content}></Input>
                 <ButtonsWrapper>
                     <Button>Zrób fiszkę</Button>
-                    <Button>+</Button>
+                    <Button onClick={handleClick}>+</Button>
                 </ButtonsWrapper>
             </Form>
         </HighlighterWrapper>

@@ -1,4 +1,4 @@
-import styled, { css, createGlobalStyle } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 
 export const HighlighterWrapper = styled.div`
     width: 500px;
@@ -13,10 +13,10 @@ export const HighlighterWrapper = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    font-family: 'Comfortaa', cursive;
 
     & > *, *::before, *::after {
     box-sizing: border-box;
+    font-family: 'Comfortaa', cursive;
   }
 
 `;

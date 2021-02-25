@@ -5,6 +5,8 @@
   "dependencies": {
     "react": "^17.0.1",
     "react-app-rewired": "^2.1.7",
+    "react-append-to-body": "^2.0.26",
+    "react-bubble": "^1.0.5",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
     "styled-components": "^5.2.1"
